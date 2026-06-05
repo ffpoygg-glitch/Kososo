@@ -1,3 +1,17 @@
+local AllowedIDs = {
+    [9802544328] = true,
+    [4161085862] = true,
+    [6030349781] = true,
+    [10922722652] = true,
+    [1697390697] = true,
+    [9303389855] = true,
+}
+
+if not AllowedIDs[game:GetService("Players").LocalPlayer.UserId] then
+    game:GetService("Players").LocalPlayer:Kick("ใครให้มึงใช้ไอสัสไอเหี้ยจนควายจริงๆ")
+    return
+end
+
 local player = game:GetService("Players").LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
