@@ -6,6 +6,7 @@ local AllowedIDs = {
     [1697390697] = true,
     [9303389855] = true,
     [10339491848] = true,
+    [3876844265] = true,
 }
 
 if not AllowedIDs[game:GetService("Players").LocalPlayer.UserId] then
