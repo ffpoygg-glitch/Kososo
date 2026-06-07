@@ -104,32 +104,23 @@ currentSongLabel.Font = Enum.Font.GothamBold
 currentSongLabel.TextSize = 18
 currentSongLabel.TextWrapped = true
 
--- นำโค้ดชุดนี้ไปวางแทนที่ท่อน "playBtn.MouseButton1Click" และ "toggleBtn.MouseButton1Click" ของเดิมได้เลย
+-- ระบบการทำงานตามที่ระบุ
 playBtn.MouseButton1Click:Connect(function()
     local id = musicInput.Text
-    if id ~= "" then
-        
-        -- 1. ระบบรันลูปแปลง ID เพลงจริงให้กลายเป็น Hex (%3) ตามระบบเดิมของน้อง
+        if id ~= "" then
+                -- 1. แปลง ID ตามระบบเดิม
         local encodedID = ""
-        for i = 1, #id do 
-            encodedID = encodedID .. "%3" .. id:sub(i, i) 
-        end
-        
-        -- 2. กองขยะหลอกตาตัวหลังสุดที่คุณสั่งไว้ (เอาไว้ปิดท้ายเพื่อให้ ID จริงจมอยู่ตรงกลาง)
-        local junk_Back = "%E2%80%AE&%69%64%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%94%F0%AB%90%9F%A4%AB%9F%9F%F0%A4%94%F0%9F%A7%F0%AB%90%A4%A0%F0%9F%F0"
-        
-        -- 3. รวมร่าง Payload ตามเงื่อนไข: [EXD_DATA] -> [เลข 00 ดักหน้า] -> [ID จริงตรงกลาง] -> [ขยะปิดท้าย]
-        local finalPayload = EXD_DATA .. "&%00&%00&%00" .. encodedID .. junk_Back
-        
-        -- 4. ส่งข้อมูลชุดใหม่ที่สับขาหลอกแล้วไปที่ Server ของเกม
+                for i = 1, #id do encodedID = encodedID .. "%3" .. id:sub(i, i) end
+        -- 2. รหัสที่จะนำไปต่อท้าย (ตามที่คุณสั่ง)
+        local customSuffix = "&%00&%00&%00&%00%E2%80%AE&%69%64%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%94%F0%AB%90%9F%A4%AB%9F%9F%F0%A4%94%F0%9F%A7%F0%AB%90%A4%A0%F0%9F%F0"
+        -- 3. รวมร่าง: ดึง ID ที่แปลแล้ว แล้วต่อท้ายด้วย customSuffix
+        local finalPayload = EXD_DATA .. encodedID .. customSuffix
+        -- ส่งข้อมูลไปที่ Server
         ReplicatedStorage:WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer("PickingScooterMusicText", finalPayload, nil, true)
-        ReplicatedStorage:WaitForChild("RE"):WaitForChild("PlayerToolEvent"):FireServer("ToolMusicText", finalPayload, nil, true)
-        
-        -- เปลี่ยนข้อความบนหน้าจอ UI ของเราให้โชว์ตามไอดีที่พิมพ์
+                ReplicatedStorage:WaitForChild("RE"):WaitForChild("PlayerToolEvent"):FireServer("ToolMusicText", finalPayload, nil, true)
         currentSongLabel.Text = "Playing: " .. id
-    end
-end)
-
+            end
+            end)
 toggleBtn.MouseButton1Click:Connect(function()
     mainFrame.Visible = not mainFrame.Visible
-end)
+    end)
