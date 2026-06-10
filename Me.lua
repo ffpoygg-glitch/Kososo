@@ -108,20 +108,20 @@ currentSongLabel.TextWrapped = true
 playBtn.MouseButton1Click:Connect(function()
     local id = musicInput.Text
     if id ~= "" then
+        -- 1. ขยะชุดหลังที่จะนำไปต่อท้าย (เอาไว้สาดกากขยะเพิ่มได้เรื่อยๆ ในเครื่องหมายคำพูดนี้)
+        local customSuffix = "%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%94%F0%AB%90%9F%A4%AB%9F%9F%F0%A4%94%F0%9F%A7%F0%AB%90%A4%A0%F0%9F%F0"
         
-        -- [ส่วนที่ 1]: ระบบจะไปดึง EXD_DATA จาก GitHub (ที่เป็นค่า 8%35...&id= รอไว้แล้ว)
-        
-        -- [ส่วนที่ 2]: ตรงนี้แหละครับ! สาดขยะปิดท้ายเพิ่มได้เรื่อยๆ เลยตามใจชอบ 
-        -- พิมพ์ต่อความยาวในเครื่องหมายคำพูดนี้ได้ไม่จำกัด (แต่ต้องขึ้นต้นด้วย %00 เพื่อตัดคำนะ)
-        local customSuffix = "%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7%00&%00&%00&%00%E2%80%AE%AB%F0%F0%9F%AB%9F%A4%9F%F0%A0%A7"
-        
-        -- [ส่วนที่ 3]: รวมร่าง (ขยะหน้า + เลขเพลงจริง + ขยะหลังที่คุณเพิ่งใส่)
+        -- 2. รวมร่าง: เอาหัวขยะจาก GitHub (EXD_DATA) + เลขไอดีจริงในเกม (id) + ขยะปิดท้าย (customSuffix)
         local finalPayload = EXD_DATA .. id .. customSuffix
         
-        -- ส่งข้อมูลไปที่ Server
+        -- 3. ส่งข้อมูลไปที่ Server
         ReplicatedStorage:WaitForChild("RE"):WaitForChild("1NoMoto1rVehicle1s"):FireServer("PickingScooterMusicText", finalPayload, nil, true)
         ReplicatedStorage:WaitForChild("RE"):WaitForChild("PlayerToolEvent"):FireServer("ToolMusicText", finalPayload, nil, true)
         
         currentSongLabel.Text = "Playing: " .. id
-    end
+    end -- << เติม end ปิดท้ายเงื่อนไข if ตรงนี้ให้ถูกต้อง
+end)
+
+toggleBtn.MouseButton1Click:Connect(function()
+    mainFrame.Visible = not mainFrame.Visible
 end)
